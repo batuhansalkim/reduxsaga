@@ -1,0 +1,96 @@
+# Proje Geliştirme Adımları ve Açıklamaları
+
+## 1. Proje Kurulumu ve Yapılandırma
+- **Next.js projesi oluşturuldu.**
+- `src/` altında modern Next.js app router yapısı kullanıldı.
+- **Tailwind CSS** eklendi ve `globals.css`'e gerekli direktifler eklendi (modern, responsive ve dark mode destekli UI için).
+
+## 2. Redux, Redux-Saga ve State Yönetimi
+- **Redux**: Uygulama genelinde kullanıcı ve post verilerini yönetmek için kullanıldı.
+- **Redux-Saga**: API'den veri çekme, ekleme, silme, güncelleme gibi asenkron işlemler için kullanıldı.
+- `src/redux/` altında:
+  - `store.js`: Redux store ve saga middleware kurulumu.
+  - `rootReducer.js`: Tüm reducer'ların birleştirildiği dosya.
+  - `rootSaga.js`: Tüm saga'ların birleştirildiği dosya.
+  - `user/` ve `post/` klasörleri: Kullanıcı ve post işlemleri için slice ve saga dosyaları.
+
+## 3. Kullanıcı (User) Özelliği
+- `userSlice.js`: Kullanıcı state'i (users, loading, error) ve ilgili action/reducer'lar.
+- `userSaga.js`: Kullanıcıları API'den çekmek için saga fonksiyonu.
+- Kullanıcılar, uygulama açıldığında otomatik olarak çekilir.
+
+## 4. Post (Gönderi) Özelliği
+- `postSlice.js`: Post state'i (posts, loading, error, adding, silme, güncelleme durumları) ve ilgili action/reducer'lar.
+- `postSaga.js`: Postları çekme, ekleme, silme, güncelleme için saga fonksiyonları.
+- Her işlem için (fetch, add, delete, update) ayrı action ve saga yazıldı.
+
+## 5. UI Bileşenleri ve Sayfa Yapısı
+- `src/components/UserList.js`:
+  - Kullanıcıları tablo (flat list) olarak gösterir.
+  - Arama kutusu ile filtreleme yapılır.
+  - Her satırda avatar, isim, username, e-posta, şirket, şehir, telefon, website gösterilir.
+  - Satıra tıklanınca accordion açılır ve ilgili kullanıcının postları gösterilir.
+  - Accordion açıkken sağ üstte X ile kapatma butonu bulunur.
+- `src/components/PostList.js`:
+  - Seçili kullanıcıya ait postları kart şeklinde gösterir.
+  - Üstte yeni post ekleme formu vardır.
+  - Her postta sil (🗑) ve düzenle (✏️) butonları bulunur.
+  - Düzenle butonuna tıklanınca inline edit formu açılır, kaydet/iptal yapılabilir.
+- `src/app/page.js`:
+  - Sadece UserList componentini içerir.
+  - Postlar accordion olarak UserList içinde açılır.
+- `src/app/layout.js` ve `src/app/Providers.js`:
+  - Redux Provider'ı ve global stilleri uygular.
+
+## 6. Kullanılan Teknolojiler ve Nedenleri
+- **Next.js**: Modern, hızlı, SSR/SSG destekli React framework'ü.
+- **Tailwind CSS**: Hızlı, esnek ve dark mode destekli stil yazımı için.
+- **Redux & Redux-Saga**: State yönetimi ve asenkron işlemler için.
+- **Axios**: API istekleri için (fetch alternatifi).
+- **JSONPlaceholder API**: Demo amaçlı, sahte kullanıcı ve post verisi için.
+
+## 7. Akış ve Kullanıcı Deneyimi
+- Uygulama açıldığında kullanıcılar otomatik olarak çekilir ve tabloya basılır.
+- Arama kutusu ile kullanıcılar filtrelenebilir.
+- Kullanıcıya tıklanınca, o satırın hemen altında postlar açılır (accordion).
+- Postlar kart şeklinde, modern ve responsive olarak gösterilir.
+- Yeni post eklenebilir, mevcut postlar silinebilir veya düzenlenebilir.
+- Tüm işlemler Redux-Saga ile API'ye bağlı şekilde yapılır (JSONPlaceholder demo API olduğu için gerçek değişiklik olmaz, ama response döner).
+- UI tamamen responsive ve dark mode uyumludur.
+
+## 8. Dosya ve Klasör Yapısı (Özet)
+```
+newproject/
+  src/
+    app/
+      layout.js
+      page.js
+      Providers.js
+      globals.css
+    components/
+      UserList.js
+      PostList.js
+    redux/
+      store.js
+      rootReducer.js
+      rootSaga.js
+      user/
+        userSlice.js
+        userSaga.js
+      post/
+        postSlice.js
+        postSaga.js
+```
+
+## 9. Neden Bu Yapı ve Kararlar?
+- **Modülerlik:** Her işlev için ayrı dosya/component, bakımı ve geliştirmesi kolay.
+- **Redux-Saga:** Karmaşık asenkron işlemler için sade ve test edilebilir kod.
+- **Accordion UI:** Kullanıcı deneyimini artırmak, gereksiz sayfa kaydırmasını önlemek için.
+- **Modern UI:** Tailwind ile hızlı, şık ve dark mode uyumlu arayüz.
+- **Provider ve Client Component Ayrımı:** Next.js app router ile uyumlu, context/state yönetimi için doğru yapı.
+
+## 10. Sonuç
+- Task'ın tüm gereksinimleri eksiksiz ve modern bir şekilde yerine getirildi.
+- Kod okunabilir, geliştirilebilir ve ölçeklenebilir şekilde tasarlandı.
+- Kullanıcı ve post işlemlerinin tamamı Redux-Saga ile yönetildi.
+- UI/UX modern, responsive ve dark mode destekli olarak tamamlandı.
