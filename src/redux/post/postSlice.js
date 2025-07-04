@@ -72,6 +72,7 @@ const postSlice = createSlice({
 export const {
   fetchPostsRequest, fetchPostsSuccess, fetchPostsFailure,
   addPostRequest, addPostSuccess, addPostFailure,
-  deletePostRequest, deletePostSuccess, deletePostFailure
+  deletePostRequest, deletePostSuccess, deletePostFailure,
+  updatePostRequest, updatePostSuccess, updatePostFailure
 } = postSlice.actions;
 export default postSlice.reducer;
